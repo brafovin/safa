@@ -43,81 +43,125 @@
     // Path (locked)
     shapes.push({ type: 'polygon', points: '150,300 250,300 220,210 180,210', fill: '#D4B37F', locked: true });
 
-    // Sun or moon
+    // Sun or moon (major)
     const isSun = Math.random() < 0.7;
     shapes.push({
       type: 'circle',
       cx: rand(40, 360), cy: rand(35, 80),
       r: rand(22, 30),
-      fill: isSun ? '#FFD93D' : '#E8E8E8'
+      fill: isSun ? '#FFD93D' : '#E8E8E8',
+      category: 'major'
     });
 
-    // House
+    // House (major – nur dezente Änderungen)
     const hx = rand(45, 110);
-    shapes.push({ type: 'rect', x: hx, y: 140, w: 90, h: 80, fill: pick(['#E6B58A', '#DEB887', '#C4A484']) });
-    shapes.push({ type: 'polygon', points: `${hx - 10},140 ${hx + 100},140 ${hx + 45},90`, fill: pick(['#A0522D', '#8B4513', '#6B3410']) });
-    shapes.push({ type: 'rect', x: hx + 35, y: 185, w: 20, h: 35, fill: '#5C3317' });
-    shapes.push({ type: 'rect', x: hx + 60, y: 155, w: 22, h: 18, fill: '#B0E0E6' });
-    shapes.push({ type: 'rect', x: hx + 70, y: 95, w: 10, h: 20, fill: '#555' });
+    shapes.push({ type: 'rect', x: hx, y: 140, w: 90, h: 80, fill: pick(['#E6B58A', '#DEB887', '#C4A484']), category: 'major' });
+    shapes.push({ type: 'polygon', points: `${hx - 10},140 ${hx + 100},140 ${hx + 45},90`, fill: pick(['#A0522D', '#8B4513', '#6B3410']), category: 'major' });
+    shapes.push({ type: 'rect', x: hx + 35, y: 185, w: 20, h: 35, fill: '#5C3317', category: 'major' });
+    shapes.push({ type: 'rect', x: hx + 60, y: 155, w: 22, h: 18, fill: '#B0E0E6', category: 'major' });
+    shapes.push({ type: 'rect', x: hx + 70, y: 95, w: 10, h: 20, fill: '#555', category: 'major' });
+    // Zweites Fenster
+    shapes.push({ type: 'rect', x: hx + 10, y: 155, w: 18, h: 18, fill: '#B0E0E6', category: 'major' });
+    // Türknauf (klein, minor – kann verschwinden)
+    shapes.push({ type: 'circle', cx: hx + 52, cy: 203, r: 2.2, fill: '#FFD700', category: 'minor' });
 
-    // Big tree
+    // Big tree (major)
     const tx = rand(240, 300);
-    shapes.push({ type: 'rect', x: tx, y: 170, w: 14, h: 50, fill: '#6B4423' });
-    shapes.push({ type: 'circle', cx: tx + 7, cy: 165, r: 30, fill: pick(['#2E8B57', '#3CB371', '#228B22']) });
+    shapes.push({ type: 'rect', x: tx, y: 170, w: 14, h: 50, fill: '#6B4423', category: 'major' });
+    shapes.push({ type: 'circle', cx: tx + 7, cy: 165, r: 30, fill: pick(['#2E8B57', '#3CB371', '#228B22']), category: 'major' });
 
-    // Bush
+    // Bush (major)
     const bx = rand(330, 380);
-    shapes.push({ type: 'circle', cx: bx, cy: 200, r: 18, fill: '#3CB371' });
+    shapes.push({ type: 'circle', cx: bx, cy: 200, r: 18, fill: '#3CB371', category: 'major' });
 
-    // Clouds
-    const cloudCount = randInt(2, 4);
+    // Äpfel / Früchte auf dem Baum (minor)
+    const fruitCount = randInt(2, 4);
+    for (let i = 0; i < fruitCount; i++) {
+      shapes.push({
+        type: 'circle',
+        cx: tx + 7 + rand(-22, 22), cy: 165 + rand(-20, 18),
+        r: rand(2.5, 3.5),
+        fill: pick(['#E74C3C', '#C0392B', '#FFB347']),
+        category: 'minor'
+      });
+    }
+
+    // Clouds (minor – können Form/Farbe ändern, auch mal verschwinden)
+    const cloudCount = randInt(3, 5);
     for (let i = 0; i < cloudCount; i++) {
       shapes.push({
         type: 'ellipse',
-        cx: rand(40, 360), cy: rand(25, 95),
+        cx: rand(40, 360), cy: rand(20, 100),
         rx: rand(22, 38), ry: rand(10, 16),
-        fill: '#FFFFFF'
+        fill: '#FFFFFF',
+        category: 'minor'
       });
     }
 
-    // Flowers
-    const flowerColors = ['#FF6B6B', '#FFB6C1', '#9370DB', '#FFD700', '#FF8C00', '#DA70D6'];
-    const flowerCount = randInt(6, 9);
-    for (let i = 0; i < flowerCount; i++) {
-      shapes.push({
-        type: 'circle',
-        cx: rand(15, 385), cy: rand(240, 290),
-        r: rand(5, 8),
-        fill: pick(flowerColors)
-      });
-    }
-
-    // Stones
-    for (let i = 0; i < 3; i++) {
-      shapes.push({
-        type: 'ellipse',
-        cx: rand(20, 380), cy: rand(250, 290),
-        rx: rand(7, 12), ry: rand(4, 7),
-        fill: pick(['#808080', '#A9A9A9', '#696969'])
-      });
-    }
-
-    // Floating dots (birds/butterflies stylized)
+    // Schornsteinrauch (minor)
     for (let i = 0; i < 2; i++) {
       shapes.push({
         type: 'circle',
-        cx: rand(30, 370), cy: rand(110, 180),
+        cx: hx + 75 + rand(-4, 4), cy: 80 - i * 10,
         r: rand(4, 6),
-        fill: pick(['#FF4500', '#1E90FF', '#FFD700'])
+        fill: '#E8E8E8',
+        category: 'minor'
       });
     }
 
-    // Optional star
-    if (Math.random() < 0.5) {
+    // Flowers (minor)
+    const flowerColors = ['#FF6B6B', '#FFB6C1', '#9370DB', '#FFD700', '#FF8C00', '#DA70D6', '#FF1493'];
+    const flowerCount = randInt(9, 13);
+    for (let i = 0; i < flowerCount; i++) {
+      shapes.push({
+        type: 'circle',
+        cx: rand(15, 385), cy: rand(235, 292),
+        r: rand(4, 7),
+        fill: pick(flowerColors),
+        category: 'minor'
+      });
+    }
+
+    // Grasbüschel (minor)
+    for (let i = 0; i < randInt(4, 7); i++) {
+      shapes.push({
+        type: 'ellipse',
+        cx: rand(15, 385), cy: rand(230, 290),
+        rx: rand(4, 7), ry: rand(2, 3.5),
+        fill: pick(['#2E8B57', '#228B22', '#3CB371']),
+        category: 'minor'
+      });
+    }
+
+    // Stones (minor)
+    for (let i = 0; i < randInt(3, 5); i++) {
+      shapes.push({
+        type: 'ellipse',
+        cx: rand(20, 380), cy: rand(250, 290),
+        rx: rand(6, 11), ry: rand(4, 7),
+        fill: pick(['#808080', '#A9A9A9', '#696969']),
+        category: 'minor'
+      });
+    }
+
+    // Schmetterlinge / Vögel (minor)
+    for (let i = 0; i < randInt(2, 4); i++) {
+      shapes.push({
+        type: 'circle',
+        cx: rand(30, 370), cy: rand(110, 185),
+        r: rand(3, 5),
+        fill: pick(['#FF4500', '#1E90FF', '#FFD700', '#FF69B4']),
+        category: 'minor'
+      });
+    }
+
+    // Optional star (minor)
+    if (Math.random() < 0.4) {
       shapes.push({
         type: 'polygon',
-        points: starPoints(rand(50, 350), rand(40, 90), 8),
-        fill: '#FFF'
+        points: starPoints(rand(50, 350), rand(40, 90), rand(5, 7)),
+        fill: '#FFF',
+        category: 'minor'
       });
     }
 
@@ -166,19 +210,73 @@
     }
   }
 
+  // ---------- Color utilities (für subtile Farbverschiebungen) ----------
+  function hexToHsl(hex) {
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h = 0, s = 0, l = (max + min) / 2;
+    if (max !== min) {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+      else if (max === g) h = (b - r) / d + 2;
+      else h = (r - g) / d + 4;
+      h /= 6;
+    }
+    return [h * 360, s * 100, l * 100];
+  }
+
+  function hslToHex(h, s, l) {
+    s /= 100; l /= 100;
+    const k = n => (n + h / 30) % 12;
+    const a = s * Math.min(l, 1 - l);
+    const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
+    const toHex = x => Math.round(255 * x).toString(16).padStart(2, '0');
+    return '#' + toHex(f(0)) + toHex(f(8)) + toHex(f(4));
+  }
+
+  function shiftColor(hex, intensity) {
+    // intensity: 'subtle' | 'moderate'
+    const src = hex.length === 4
+      ? '#' + hex.slice(1).split('').map(c => c + c).join('')
+      : hex;
+    try {
+      const [h, s, l] = hexToHsl(src);
+      const sign = Math.random() < 0.5 ? -1 : 1;
+      const variant = Math.random();
+      let nh = h, ns = s, nl = l;
+      if (intensity === 'subtle') {
+        if (variant < 0.45) nh = (h + sign * rand(18, 40) + 360) % 360;
+        else if (variant < 0.8) ns = Math.max(15, Math.min(95, s + sign * rand(15, 28)));
+        else nl = Math.max(25, Math.min(82, l + sign * rand(8, 16)));
+      } else {
+        if (variant < 0.5) nh = (h + sign * rand(40, 90) + 360) % 360;
+        else if (variant < 0.8) ns = Math.max(10, Math.min(95, s + sign * rand(25, 45)));
+        else nl = Math.max(20, Math.min(85, l + sign * rand(15, 28)));
+      }
+      return hslToHex(nh, ns, nl);
+    } catch {
+      return hex;
+    }
+  }
+
   // ---------- Mutations ----------
   function mutateShape(shape) {
-    const mutType = pick(['color', 'size', 'move']);
+    const isMajor = shape.category === 'major';
+    // Für große Strukturen nur dezente Änderungen
+    const allowed = isMajor ? ['color', 'color', 'size', 'move'] : ['color', 'size', 'move'];
+    const mutType = pick(allowed);
+
     if (mutType === 'color') {
-      const palette = ['#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#9D6BFF', '#FF8C42', '#E91E63', '#00BCD4', '#FFFFFF'];
-      let newColor;
-      let tries = 0;
-      do { newColor = pick(palette); tries++; } while (newColor.toUpperCase() === (shape.fill || '').toUpperCase() && tries < 8);
-      shape.fill = newColor;
+      shape.fill = shiftColor(shape.fill || '#888888', isMajor ? 'subtle' : 'moderate');
       return;
     }
     if (mutType === 'size') {
-      const factor = Math.random() < 0.5 ? rand(0.55, 0.72) : rand(1.4, 1.75);
+      const factor = isMajor
+        ? (Math.random() < 0.5 ? rand(0.8, 0.9) : rand(1.12, 1.25))
+        : (Math.random() < 0.5 ? rand(0.65, 0.8) : rand(1.3, 1.55));
       if (shape.type === 'rect') {
         const cx = shape.x + shape.w / 2, cy = shape.y + shape.h / 2;
         shape.w = Math.max(6, shape.w * factor);
@@ -186,10 +284,10 @@
         shape.x = cx - shape.w / 2;
         shape.y = cy - shape.h / 2;
       } else if (shape.type === 'circle') {
-        shape.r = Math.max(4, shape.r * factor);
+        shape.r = Math.max(3, shape.r * factor);
       } else if (shape.type === 'ellipse') {
-        shape.rx = Math.max(4, shape.rx * factor);
-        shape.ry = Math.max(3, shape.ry * factor);
+        shape.rx = Math.max(3, shape.rx * factor);
+        shape.ry = Math.max(2, shape.ry * factor);
       } else if (shape.type === 'polygon') {
         const c = shapeCenter(shape);
         const pts = shape.points.trim().split(/\s+/).map(p => p.split(',').map(Number));
@@ -202,8 +300,14 @@
       return;
     }
     // move
+    const range = isMajor
+      ? { min: 4, dx: 8, dy: 6 }
+      : { min: 10, dx: 22, dy: 16 };
     let dx, dy;
-    do { dx = rand(-35, 35); dy = rand(-22, 22); } while (Math.hypot(dx, dy) < 16);
+    do {
+      dx = rand(-range.dx, range.dx);
+      dy = rand(-range.dy, range.dy);
+    } while (Math.hypot(dx, dy) < range.min);
     if (shape.type === 'rect') { shape.x += dx; shape.y += dy; }
     else if (shape.type === 'circle' || shape.type === 'ellipse') { shape.cx += dx; shape.cy += dy; }
     else if (shape.type === 'polygon') {
@@ -213,16 +317,46 @@
   }
 
   function createRandomShape() {
-    const type = pick(['circle', 'ellipse', 'rect']);
-    const palette = ['#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#9D6BFF', '#FF8C42', '#E91E63'];
-    if (type === 'circle') {
-      return { type, cx: rand(30, 370), cy: rand(30, 280), r: rand(7, 13), fill: pick(palette) };
+    // Kleine, unauffällige Deko – damit neue Objekte nicht sofort ins Auge fallen
+    const variant = Math.random();
+    if (variant < 0.5) {
+      // Blume
+      const flowerColors = ['#FF6B6B', '#FFB6C1', '#9370DB', '#FFD700', '#FF8C00', '#DA70D6', '#FF1493'];
+      return {
+        type: 'circle',
+        cx: rand(20, 380), cy: rand(240, 290),
+        r: rand(4, 7),
+        fill: pick(flowerColors),
+        category: 'minor'
+      };
     }
-    if (type === 'ellipse') {
-      return { type, cx: rand(30, 370), cy: rand(30, 280), rx: rand(9, 16), ry: rand(5, 10), fill: pick(palette) };
+    if (variant < 0.75) {
+      // Stein
+      return {
+        type: 'ellipse',
+        cx: rand(20, 380), cy: rand(250, 290),
+        rx: rand(6, 10), ry: rand(4, 6),
+        fill: pick(['#808080', '#A9A9A9', '#696969']),
+        category: 'minor'
+      };
     }
-    const w = rand(15, 28), h = rand(10, 20);
-    return { type, x: rand(20, 360), y: rand(30, 270), w, h, fill: pick(palette) };
+    // Kleine Wolke oder fliegender Punkt
+    if (Math.random() < 0.5) {
+      return {
+        type: 'ellipse',
+        cx: rand(30, 370), cy: rand(20, 100),
+        rx: rand(18, 30), ry: rand(8, 13),
+        fill: '#FFFFFF',
+        category: 'minor'
+      };
+    }
+    return {
+      type: 'circle',
+      cx: rand(30, 370), cy: rand(110, 180),
+      r: rand(3, 5),
+      fill: pick(['#FF4500', '#1E90FF', '#FFD700', '#FF69B4']),
+      category: 'minor'
+    };
   }
 
   // ---------- SVG rendering ----------
@@ -273,59 +407,87 @@
     const count = DIFFICULTY[diffSelect.value] || 5;
     const baseShapes = generateScene();
 
-    const mutableIndexes = baseShapes
-      .map((s, i) => (!s.locked ? i : -1))
-      .filter(i => i !== -1);
-    const shuffled = mutableIndexes.slice().sort(() => Math.random() - 0.5);
+    // Getrennte Pools für major und minor – remove/add läuft nur gegen minor
+    const majorIdx = [];
+    const minorIdx = [];
+    baseShapes.forEach((s, i) => {
+      if (s.locked) return;
+      if (s.category === 'major') majorIdx.push(i);
+      else minorIdx.push(i);
+    });
+    majorIdx.sort(() => Math.random() - 0.5);
+    minorIdx.sort(() => Math.random() - 0.5);
 
     const shapesA = clone(baseShapes);
     const shapesB = clone(baseShapes);
     differences = [];
 
     let placed = 0;
-    let idx = 0;
-    const mutationTypes = ['color', 'size', 'move', 'remove', 'add'];
+    let mIdx = 0; // minor pointer
+    let MIdx = 0; // major pointer
+    // Etwa 1/3 der Unterschiede dürfen auf major-Shapes entfallen – und nur als subtile Änderung
+    const majorBudget = Math.max(1, Math.floor(count / 3));
+    let majorUsed = 0;
 
     while (placed < count) {
-      const canMutate = idx < shuffled.length;
-      let mType = canMutate ? pick(mutationTypes) : 'add';
-      // Reduce frequency of add so most differences come from existing shapes
-      if (canMutate && mType === 'add' && Math.random() < 0.6) mType = pick(['color', 'size', 'move', 'remove']);
+      // Mutationstyp wählen: remove/add nur für minor; major nur color/size/move
+      let mType;
+      const canMajor = majorUsed < majorBudget && MIdx < majorIdx.length;
+      const canMinor = mIdx < minorIdx.length;
 
-      if (mType === 'add') {
-        const newShape = createRandomShape();
-        shapesB.push(newShape);
-        differences.push({
-          center: shapeCenter(newShape),
-          radius: shapeRadius(newShape),
-          found: false
-        });
+      // 30% Chance auf major-Mutation, solange Budget da ist – sonst minor
+      if (canMajor && (!canMinor || Math.random() < 0.3)) {
+        mType = pick(['color', 'size', 'move']);
+        const targetIdx = majorIdx[MIdx++];
+        majorUsed++;
+        const original = shapesA[targetIdx];
+        const modified = shapesB[targetIdx];
+        mutateShape(modified);
+        addDifferenceFromPair(original, modified);
         placed++;
         continue;
       }
 
-      const targetIdx = shuffled[idx++];
-      const original = shapesA[targetIdx];
-      const modified = shapesB[targetIdx];
-
-      if (mType === 'remove') {
-        modified._removed = true;
-        differences.push({
-          center: shapeCenter(original),
-          radius: shapeRadius(original),
-          found: false
-        });
-      } else {
-        mutateShape(modified);
-        const cA = shapeCenter(original);
-        const cB = shapeCenter(modified);
-        const cx = (cA.x + cB.x) / 2;
-        const cy = (cA.y + cB.y) / 2;
-        const halfDist = Math.hypot(cA.x - cB.x, cA.y - cB.y) / 2;
-        const r = halfDist + Math.max(shapeRadius(original), shapeRadius(modified));
-        differences.push({ center: { x: cx, y: cy }, radius: r, found: false });
+      if (canMinor) {
+        // Bei minor: color/size/move/remove, seltener add
+        mType = pick(['color', 'size', 'move', 'remove', 'color', 'size', 'move']);
+        const targetIdx = minorIdx[mIdx++];
+        const original = shapesA[targetIdx];
+        const modified = shapesB[targetIdx];
+        if (mType === 'remove') {
+          modified._removed = true;
+          differences.push({
+            center: shapeCenter(original),
+            radius: shapeRadius(original),
+            found: false
+          });
+        } else {
+          mutateShape(modified);
+          addDifferenceFromPair(original, modified);
+        }
+        placed++;
+        continue;
       }
+
+      // Keine Kandidaten mehr: neue Shape in B hinzufügen
+      const newShape = createRandomShape();
+      shapesB.push(newShape);
+      differences.push({
+        center: shapeCenter(newShape),
+        radius: shapeRadius(newShape),
+        found: false
+      });
       placed++;
+    }
+
+    function addDifferenceFromPair(original, modified) {
+      const cA = shapeCenter(original);
+      const cB = shapeCenter(modified);
+      const cx = (cA.x + cB.x) / 2;
+      const cy = (cA.y + cB.y) / 2;
+      const halfDist = Math.hypot(cA.x - cB.x, cA.y - cB.y) / 2;
+      const r = halfDist + Math.max(shapeRadius(original), shapeRadius(modified));
+      differences.push({ center: { x: cx, y: cy }, radius: r, found: false });
     }
 
     const finalB = shapesB.filter(s => !s._removed);
