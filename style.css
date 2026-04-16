@@ -65,7 +65,8 @@ html, body {
 }
 
 .controls select,
-.controls button {
+.controls button,
+.controls .linklike {
   padding: 8px 14px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -73,11 +74,13 @@ html, body {
   color: #f5f5f5;
   font-size: 0.95rem;
   cursor: pointer;
+  text-decoration: none;
   transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .controls select:hover,
-.controls button:hover {
+.controls button:hover,
+.controls .linklike:hover {
   background: rgba(255, 255, 255, 0.18);
 }
 
