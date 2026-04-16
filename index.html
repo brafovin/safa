@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finde den Unterschied</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Finde den Unterschied</h1>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">Gefunden</span>
+        <span class="stat-value"><span id="found">0</span> / <span id="total">0</span></span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Zeit</span>
+        <span class="stat-value" id="timer">00:00</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Fehlklicks</span>
+        <span class="stat-value" id="misses">0</span>
+      </div>
+    </div>
+    <div class="controls">
+      <label for="difficulty">Schwierigkeit:</label>
+      <select id="difficulty">
+        <option value="easy">Leicht (3)</option>
+        <option value="medium" selected>Mittel (5)</option>
+        <option value="hard">Schwer (8)</option>
+        <option value="expert">Experte (12)</option>
+      </select>
+      <button id="new-game">Neues Spiel</button>
+    </div>
+  </header>
+
+  <main class="board">
+    <div class="scene-wrap">
+      <div class="scene-label">Bild A</div>
+      <div class="scene" id="scene-a"></div>
+    </div>
+    <div class="scene-wrap">
+      <div class="scene-label">Bild B</div>
+      <div class="scene" id="scene-b"></div>
+    </div>
+  </main>
+
+  <div id="overlay" class="overlay hidden">
+    <div class="overlay-card">
+      <h2 id="overlay-title">Geschafft!</h2>
+      <p id="overlay-text">Du hast alle Unterschiede gefunden.</p>
+      <button id="overlay-close">Nochmal spielen</button>
+    </div>
+  </div>
+
+  <footer class="hint">
+    Tipp: Klicke in einem der Bilder auf den Unterschied, den du erkennst. Richtige Treffer werden grün markiert, Fehlklicks rot.
+  </footer>
+
+  <script src="game.js"></script>
+</body>
+</html>
