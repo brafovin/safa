@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Messi Memory</title>
+  <link rel="stylesheet" href="memory.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Messi Memory</h1>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">Paare</span>
+        <span class="stat-value"><span id="found">0</span> / <span id="total">0</span></span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Züge</span>
+        <span class="stat-value" id="moves">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Zeit</span>
+        <span class="stat-value" id="timer">00:00</span>
+      </div>
+    </div>
+    <div class="controls">
+      <label for="difficulty">Schwierigkeit:</label>
+      <select id="difficulty">
+        <option value="easy">Leicht (6 Paare)</option>
+        <option value="medium" selected>Mittel (8 Paare)</option>
+        <option value="hard">Schwer (10 Paare)</option>
+      </select>
+      <button id="new-game">Neues Spiel</button>
+      <a class="linklike" href="index.html">Unterschiede&nbsp;Spiel</a>
+    </div>
+  </header>
+
+  <main class="board" id="board"></main>
+
+  <div id="overlay" class="overlay hidden">
+    <div class="overlay-card">
+      <h2 id="overlay-title">Geschafft! 🏆</h2>
+      <p id="overlay-text">Du hast alle Paare gefunden.</p>
+      <button id="overlay-close">Nochmal spielen</button>
+    </div>
+  </div>
+
+  <footer class="hint">
+    Klicke zwei Karten an, um ein Paar zu finden. Gleiche Motive bleiben aufgedeckt – viel Erfolg!
+  </footer>
+
+  <script src="memory.js"></script>
+</body>
+</html>
